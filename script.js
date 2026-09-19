@@ -125,34 +125,29 @@ const facts = [
     "Все факты собраны. Именинник признан эпичным. Можно переходить к поздравлению.",
   ],
 ];
-const artPanels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 0, 13, 14, 15, 7, 8, 11, 0, 2, 13];
-const factMedia = {
-  0: "media/cat-mackerel.jpg",
-  15: "media/capybara.jpg",
-  18: "photos/bowling.jpg",
-  20: "media/road-trip.jpg",
-  23: "media/work-legacy.jpg",
-};
+const artPanels = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 8, 0, 1, 2, 3,
+  4, 5, 6, 7,
+];
 let current = 0;
 const $ = (id) => document.getElementById(id);
 function renderFact() {
-  const [e, t, x] = facts[current],
-    panel = artPanels[current],
-    col = panel % 4,
-    row = Math.floor(panel / 4);
+  const [e, t, x] = facts[current];
+  const panel = artPanels[current];
+  const usesExtraSprite = current >= 16;
+  const columns = usesExtraSprite ? 3 : 4;
+  const col = panel % columns;
+  const row = Math.floor(panel / columns);
   $("factEmoji").textContent = e;
   $("factTitle").textContent = t;
   $("factText").textContent = x;
   $("count").textContent = `ФАКТ ${current + 1} / ${facts.length}`;
   $("progressBar").style.width = `${((current + 1) / facts.length) * 100}%`;
-  const media = factMedia[current];
-  $("factArt").style.backgroundImage = media
-    ? `url("${media}")`
-    : "url('nikolai-facts-sprite.png')";
-  $("factArt").style.backgroundSize = media ? "cover" : "400% 400%";
-  $("factArt").style.backgroundPosition = media
-    ? "center"
-    : `${col * 33.333}% ${row * 33.333}%`;
+  $("factArt").style.backgroundImage = usesExtraSprite
+    ? "url('nikolai-facts-extra-sprite.jpg')"
+    : "url('nikolai-facts-sprite.jpg')";
+  $("factArt").style.backgroundSize = usesExtraSprite ? "300% 300%" : "400% 400%";
+  $("factArt").style.backgroundPosition = `${col * (100 / (columns - 1))}% ${row * (100 / (columns - 1))}%`;
   $("nextFact").textContent =
     current === facts.length - 1
       ? "ОТКРЫТЬ ПОЗДРАВЛЕНИЕ →"
