@@ -7,7 +7,7 @@ const facts = [
   [
     "🎸",
     "РОК-ОПЫТ",
-    "Играл в группе. На вопрос про рок-н-ролл ответил: «естественно». Суд принял это как признание.",
+    "Играл в группе. Музыка для Николая — это серьёзно: с гитарой, характером и настоящим рок-н-ролльным настроением.",
   ],
   [
     "🌌",
@@ -37,7 +37,7 @@ const facts = [
   [
     "📋",
     "СПИСОК «ЧЕМ ЗАНЯТ ФОКИН»",
-    "Есть список «Чем занят Фокин». Он длиннее, чем список задач на понедельник.",
+    "Был список «Чем занят Фокин». Так было давно. Не все так умеют.",
   ],
   [
     "🔥",
@@ -116,8 +116,8 @@ const facts = [
   ],
   [
     "🏭",
-    "СТИХ КСЕНИИ",
-    "Он прессует дуплекс стали, знает, как смазка течёт. Прометей ему товарищ, а Росатом руку жмёт. ХПТэшник, волочильщик, штамповщик и высадник — а ещё добрейший котэман и оптимист.",
+    "ПРОИЗВОДСТВЕННЫЙ РОК",
+    "Прометей — товарищ, Росатом руку жмёт. В рабочем арсенале: ХПТ, волочение, штамповка и высадка. А ещё — доброта, оптимизм и любовь к котам.",
   ],
   [
     "💥",
@@ -129,11 +129,16 @@ const artPanels = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2, 3, 4,
   5, 6, 7, 8,
 ];
+const legacyArt = {
+  4: 4,
+  9: 9,
+};
 let current = 0;
 const $ = (id) => document.getElementById(id);
 function renderFact() {
   const [e, t, x] = facts[current];
-  const panel = artPanels[current];
+  const usesLegacySprite = legacyArt[current] !== undefined;
+  const panel = usesLegacySprite ? legacyArt[current] : artPanels[current];
   const usesExtraSprite = current >= 16;
   const columns = usesExtraSprite ? 3 : 4;
   const col = panel % columns;
@@ -143,7 +148,9 @@ function renderFact() {
   $("factText").textContent = x;
   $("count").textContent = `ФАКТ ${current + 1} / ${facts.length}`;
   $("progressBar").style.width = `${((current + 1) / facts.length) * 100}%`;
-  $("factArt").style.backgroundImage = usesExtraSprite
+  $("factArt").style.backgroundImage = usesLegacySprite
+    ? "url('nikolai-facts-sprite.png')"
+    : usesExtraSprite
     ? "url('nikolai-facts-extra-sprite.jpg')"
     : "url('nikolai-facts-sprite.jpg')";
   $("factArt").style.backgroundSize = usesExtraSprite ? "300% 300%" : "400% 400%";
