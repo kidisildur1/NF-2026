@@ -145,6 +145,7 @@ function renderFact() {
   const row = Math.floor(panel / columns);
   $("factEmoji").textContent = e;
   $("factTitle").textContent = t;
+  $("factTitle").classList.toggle("long-title", t.length > 18);
   $("factText").textContent = x;
   $("count").textContent = `ФАКТ ${current + 1} / ${facts.length}`;
   $("progressBar").style.width = `${((current + 1) / facts.length) * 100}%`;
