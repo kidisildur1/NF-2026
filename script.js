@@ -117,7 +117,7 @@ const facts = [
   [
     "🏭",
     "ПРОИЗВОДСТВЕННЫЙ РОК",
-    "Прометей — товарищ, Росатом руку жмёт. В рабочем арсенале: ХПТ, волочение, штамповка и высадка. А ещё — доброта, оптимизм и любовь к котам.",
+    "Он прессует дуплекс-стали, знает, как смазка течёт,\nПрометей ему товарищ, а Росатом руку жмёт.\nХПТэшник, волочильщик, штамповщик и высадчик 🤣\nА ещё добрейший парень, КОТЭман и оптимист.\nВ барабаны отгитарит он тебе любой мотив,\nУлыбнётся и обнимет свой ЛВиПный коллектив.",
   ],
   [
     "💥",
@@ -147,6 +147,7 @@ function renderFact() {
   $("factTitle").textContent = t;
   $("factTitle").classList.toggle("long-title", t.length > 18);
   $("factText").textContent = x;
+  $("factText").classList.toggle("poem", current === 23);
   $("count").textContent = `ФАКТ ${current + 1} / ${facts.length}`;
   $("progressBar").style.width = `${((current + 1) / facts.length) * 100}%`;
   $("factArt").style.backgroundImage = usesLegacySprite
@@ -188,5 +189,4 @@ $("nextFact").addEventListener("click", () => {
 });
 $("chaos").addEventListener("click", () => burst(250));
 renderFact();
-
 
